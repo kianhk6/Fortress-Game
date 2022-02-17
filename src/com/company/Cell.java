@@ -33,12 +33,12 @@ public class Cell {
         // + cell(x:integer, y:integer):void
     }
 
-    public void setTank(Cell cell) { //This one is different from UML, not sure
-        cell.isTank = true;
+    public void setTank() { //This one is different from UML, not sure
+        isTank = true;
         // + setTank(tank: all):void
     }
-    public void cellHit(Cell cell) {
-        cell.isHit = true;
+    public void cellHit() {
+        isHit = true;
         // +gotHit(object:cell):void
     }
 
