@@ -34,13 +34,11 @@ public class Cell {
     // + setTank():void
     public void setTank() {
         isTank = true;
-
     }
 
     // +gotHit(object:cell):void
-    public void cellHit() {
+    public void setHit() {
         isHit = true;
-
     }
 
     // + setX(number:integer):void

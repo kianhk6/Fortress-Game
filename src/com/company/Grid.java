@@ -5,18 +5,19 @@ public class Grid {
     Cell[][] grid = new Cell[10][10];
 
     public Grid() {
-    }
-
-    public void grid() {
-        //Not sure what this does
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 10; j++){
+                grid[i][j] = new Cell(i, j);
+            }
+        }
     }
 
     public boolean isCellTank(int x, int y) {
-        return grid[x][y].isTank();
+        return grid[x][y].getIsTank();
     }
 
     public boolean isCellHit(int x, int y) {
-        return grid[x][y].isHit();
+        return grid[x][y].getIsHit();
     }
 
     public void setTank(int x, int y) {
@@ -24,12 +25,13 @@ public class Grid {
         cell.setTank();
     }
 
-    public void cellHit(int x, int y) {
+    public void setHit(int x, int y) {
         Cell cell = grid[x][y];
-        cell.cellHit();
+        cell.setHit();
     }
 
     public Cell getCell(int x, int y) {
         return grid[x][y];
     }
+
 }
