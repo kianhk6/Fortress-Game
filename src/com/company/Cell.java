@@ -7,8 +7,12 @@ public class Cell {
     private int x;
     private int y;
 
-    public Cell() {
-        // Cell Constructor, not sure what to construct here yet.
+    // Cell Constructor, sets the coordinates and booleans
+    public Cell(int x, int y) {
+        this.x = x;
+        this.y = y;
+        isTank = false;
+        isHit = false;
     }
 
     public int getX() {
@@ -19,36 +23,35 @@ public class Cell {
         return y;
     }
 
-    public boolean isTank() {
+    public boolean getIsTank() {
         return isTank;
     }
 
-    public boolean isHit() {
+    public boolean getIsHit() {
         return isHit;
     }
 
-    public void cellCords(int newX, int newY) {
-        setX(newX);
-        setY(newY);
-        // + cell(x:integer, y:integer):void
+    // + setTank():void
+    public void setTank() {
+        isTank = true;
+
     }
 
-    public void setTank() { //This one is different from UML, not sure
-        isTank = true;
-        // + setTank(tank: all):void
-    }
+    // +gotHit(object:cell):void
     public void cellHit() {
         isHit = true;
-        // +gotHit(object:cell):void
+
     }
 
+    // + setX(number:integer):void
     public void setX(int newX) {
         x = newX;
-        // + setX(number:integer):void
+
     }
 
+    // + setY(number:integer):void
     public void setY(int newY) {
         y = newY;
-        // + setY(number:integer):void
+
     }
 }
