@@ -3,9 +3,12 @@ package com.company;
 import java.util.Locale;
 import java.util.Scanner;
 
+import java.util.ArrayList;
+
 public class UserInterface {
     private GameLogic game;
     private Boolean cheat;
+
     char[] rowLetter = new char[10];
 
     public UserInterface(GameLogic game, boolean cheat) {
@@ -37,6 +40,32 @@ public class UserInterface {
             }
             System.out.println();
         }
+        printFortressHealth();
+    }
+
+    public void printTankArray() {
+        int i = 1;
+        int totalTankAttackDMG = 0;
+        var tankList = game.getTankArray();
+        for (Tank tank : game.getTankArray()) {
+            tank.calcTankHP();
+            tank.calcTankAttackDMG();
+            totalTankAttackDMG = totalTankAttackDMG + tank.getTankAttackDMG();
+            System.out.println("Alive tank #" + i + " of " + tankList.size() + " shot you for " + tank.getTankAttackDMG());
+            i++;
+        }
+        damageFortressHealth(totalTankAttackDMG);
+    }
+
+    private void damageFortressHealth(int totalTankAttackDamage) {
+        int currentFortressHealth = game.getFortressHealth();
+        int newFortressHealth = currentFortressHealth - totalTankAttackDamage;
+        game.setFortressHealth(newFortressHealth);
+        printFortressHealth();
+    }
+
+    public void printFortressHealth() {
+        System.out.println("Fortress Health remaining: " + game.getFortressHealth());
     }
     public int convertUserXToGrid(char usr){
         for(int i = 0; i < 10; i++){
@@ -50,7 +79,7 @@ public class UserInterface {
     public int[] getUserInput() {
         Scanner scan = new Scanner(System.in);
         String userCord = scan.next();
-        while(userCord.length() > 2 || userCord.length() < 2){
+        while(userCord.length() != 2){
             System.out.println("input too short");
             scan = new Scanner(System.in);
             userCord = scan.next();

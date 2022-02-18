@@ -4,19 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
 public class GameLogic {
     private Boolean isUserTurn;
     private int FortressHealth;
     private int numOfTanks;
     private Boolean isUserTheWinner;
     private Boolean isGameFinished;
-    char[][] UIGrid = new char[10][10];
-    char[][] cheatGrid = new char[10][10];
+    protected char[][] UIGrid = new char[10][10];
+    protected char[][] cheatGrid = new char[10][10];
     Grid logicGrid;
 
-    char[] TankLetter = new char[10];
+    private char[] TankLetter = new char[10];
     List<Tank> tankArray = new ArrayList<>();
+
+    public char[] getTankLetter() {
+        return TankLetter;
+    }
+
+    public List<Tank> getTankArray() {
+        return tankArray;
+    }
+
     public GameLogic(int numOfTanks, Grid grid){
+        setFortressHealth(2500);
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 UIGrid[i][j] = '~';
@@ -92,8 +104,8 @@ public class GameLogic {
 
             //generate random cell till the starting point has the least one child or neighbour
             while (Children.size() == 0) {
-                x = rand.nextInt()%10;
-                y = rand.nextInt()%10;
+                x = abs(rand.nextInt()%10);
+                y = abs(rand.nextInt()%10);
                 Children = getChildren(x, y);
             }
 

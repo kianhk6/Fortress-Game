@@ -9,6 +9,8 @@ public class Main {
         UserInterface UI = new UserInterface(game, false);
         UI.printGameBoard();
         UI.getUserInput();
+        UI.printTankArray();
+
 	// write your code here
         //hi
     }
