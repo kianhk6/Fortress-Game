@@ -8,7 +8,7 @@ public class Main {
         game.generateTanks();
         UserInterface UI = new UserInterface(game, false);
         UI.printGameBoard();
-
+        UI.getUserInput();
 	// write your code here
         //hi
     }
