@@ -1,14 +1,23 @@
 package com.company;
 import java.util.ArrayList;
+import java.util.List;
+
 public class Tank {
     private int tankHealth;
     private int tankAttackDMG;
-    ArrayList<Cell> tankCells = new ArrayList<>();
+    List<Cell> tankCells = new ArrayList<>();
 
-    //Tank
+
 
     public Tank() {
         //Tank Constructor
+    }
+    public boolean addCell(Cell cell){
+        if(!tankCells.contains(cell)){
+            tankCells.add(cell);
+            return true;
+        }
+        return false;
     }
 
     public void calcTankAttackDMG() {

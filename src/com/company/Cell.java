@@ -6,6 +6,8 @@ public class Cell {
     private boolean isHit;
     private int x;
     private int y;
+    private Cell parent;
+
     //there are 5 tanks, and we need to decide which tank the cell
     // is for the cheat part to
     // print the right letter
@@ -62,6 +64,12 @@ public class Cell {
     // + setY(number:integer):void
     protected void setY(int newY) {
         y = newY;
+    }
 
+    public Cell getParent() {
+        return parent;
+    }
+    public void setParent(Cell cell){
+        parent = cell;
     }
 }

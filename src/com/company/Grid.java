@@ -8,6 +8,7 @@ public class Grid {
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 grid[i][j] = new Cell(i, j);
+                System.out.println(grid[i][j].getX()+ "," + grid[i][j].getY());
             }
         }
     }
@@ -39,4 +40,7 @@ public class Grid {
         return grid[x][y];
     }
 
+    public Cell[][] getGrid() {
+        return grid;
+    }
 }
