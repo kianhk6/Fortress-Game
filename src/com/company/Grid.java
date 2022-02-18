@@ -15,7 +15,12 @@ public class Grid {
     public boolean isCellTank(int x, int y) {
         return grid[x][y].getIsTank();
     }
-
+    public int getWhichTank(int x, int y) {
+        return grid[x][y].getWhichTank();
+    }
+    public void setWhichTank(int x, int y, int tankNum){
+        grid[x][y].setWhichTank(tankNum);
+    }
     public boolean isCellHit(int x, int y) {
         return grid[x][y].getIsHit();
     }

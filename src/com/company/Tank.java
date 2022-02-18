@@ -1,8 +1,8 @@
 package com.company;
 import java.util.ArrayList;
 public class Tank {
-    private int tankHP;
-    private int tankDMG;
+    private int tankHealth;
+    private int tankAttackDMG;
     ArrayList<Cell> tankCells = new ArrayList<>();
 
     //Tank
@@ -11,30 +11,30 @@ public class Tank {
         //Tank Constructor
     }
 
-    public void calcTankDMG() {
-        switch (tankHP) {
+    public void calcTankAttackDMG() {
+        switch (tankHealth) {
             case 0:
-                tankDMG = 0;
+                tankAttackDMG = 0;
                 break;
 
             case 1:
-                tankDMG = 1;
+                tankAttackDMG = 1;
                 break;
 
             case 2:
-                tankDMG = 2;
+                tankAttackDMG = 2;
                 break;
 
             case 3:
-                tankDMG = 3;
+                tankAttackDMG = 3;
                 break;
 
             case 4:
-                tankDMG = 5;
+                tankAttackDMG = 5;
                 break;
 
             case 5:
-                tankDMG = 20;
+                tankAttackDMG = 20;
                 break;
 
             default:
@@ -45,18 +45,18 @@ public class Tank {
     public void calcTankHP() {
         int aliveCells = 0;
         for (Cell cell : tankCells) {
-            if (!cell.isHit()) {
+            if (!cell.getIsHit()) {
                 aliveCells++;
             }
         }
-        tankHP = aliveCells;
+        tankHealth = aliveCells;
     }
 
-    public int getTankHP() {
-        return tankHP;
+    public int getTankHealth() {
+        return tankHealth;
     }
 
-    public int getTankDMG() {
-        return tankDMG;
+    public int getTankAttackDMG() {
+        return tankAttackDMG;
     }
 }
