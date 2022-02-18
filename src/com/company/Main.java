@@ -6,7 +6,7 @@ public class Main {
         Grid grid = new Grid();
         GameLogic game = new GameLogic(5, grid);
         game.generateTanks();
-        UserInterface UI = new UserInterface(game, true);
+        UserInterface UI = new UserInterface(game, false);
         UI.printGameBoard();
 
 	// write your code here

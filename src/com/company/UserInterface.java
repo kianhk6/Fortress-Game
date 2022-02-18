@@ -17,8 +17,6 @@ public class UserInterface {
         rowLetter[7] = 'H';
         rowLetter[8] = 'I';
         rowLetter[9] = 'J';
-
-
     }
     public void printGameBoard(){
         char[][] gameBoard = cheat ? game.getCheatGrid() : game.getUIGrid();
@@ -28,7 +26,7 @@ public class UserInterface {
         }
         System.out.println();
         for(int i = 0; i < 10; i++){
-            System.out.printf("    %d  ", i);
+            System.out.printf("    %c  ", rowLetter[i]);
             for(int j = 0; j < 10; j++){
                 System.out.printf("%c  ", gameBoard[i][j]);
             }

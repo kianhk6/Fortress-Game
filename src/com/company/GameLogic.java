@@ -41,14 +41,14 @@ public class GameLogic {
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 if(logicGrid.isCellTank(i,j)){
-                    cheatGrid[i][j] = (char)(logicGrid.getCell(i, j).getWhichTank() +'0');
+                    cheatGrid[i][j] = getTankChar(logicGrid.getCell(i,j));
                 }
             }
         }
     }
     private char getTankChar(Cell cell){
-        cell.getWhichTank();
-        return 'c';
+
+        return TankLetter[cell.getWhichTank()];
 //        return TankLetter[cell.getWhichTank()];
     }
     //Game Logic
@@ -58,33 +58,20 @@ public class GameLogic {
             if(!logicGrid.getCell(x+1,y).getIsTank()){
                 children.add(logicGrid.getCell(x+1,y));
             }
-            else{
-                System.out.println("its tank x+1, y");
-            }
         }
         if( y < 9){
             if(!logicGrid.getCell(x,y+1).getIsTank()){
                 children.add(logicGrid.getCell(x, y+1));
             }
-            else{
-                System.out.println("its tank x, y+1");
-            }
-
         }
         if( x > 0){
             if( !logicGrid.isCellTank(x-1,y)){
                 children.add(logicGrid.getCell(x-1, y));
             }
-            else{
-                System.out.println("its tank x-1, y");
-            }
         }
         if(y > 0){
             if(!logicGrid.getCell(x,y-1).getIsTank()){
                 children.add(logicGrid.getCell(x, y-1));
-            }
-            else{
-                System.out.println("its tank x, y-1");
             }
         }
         return children;
@@ -92,7 +79,6 @@ public class GameLogic {
     public void generateTanks(){
         for(int i = 0; i < numOfTanks; i++){
             Random rand = new Random();
-            System.out.println(i);
             Tank tank = new Tank();
             int x = rand.nextInt() & Integer.MAX_VALUE %10;
             int y = rand.nextInt() & Integer.MAX_VALUE %10;
@@ -117,8 +103,6 @@ public class GameLogic {
             logicGrid.getCell(x, y).setWhichTank(i);
             Cell current = addFrom(logicGrid.getCell(x, y), tank, i);
 
-            System.out.println(x + "," + y + " " +logicGrid.getCell(x, y).getIsTank());
-
             while(tank.tankCells.size() < 5){
                 //adding children from this place
                 ArrayList<Cell> nextChildChildren = getChildren(current.getX(), current.getY());
@@ -142,7 +126,6 @@ public class GameLogic {
         Random rand = new Random();
         ArrayList<Cell> Children = getChildren(origin.getX(), origin.getY());
         int randomChildIndex = rand.nextInt(Children.size());
-        System.out.println(randomChildIndex);
         //make the cell to tank
         Cell child = Children.get(randomChildIndex);
 
@@ -150,8 +133,6 @@ public class GameLogic {
         child.setWhichTank(tankId);
         tank.addCell(child);
         child.setParent(origin);
-        System.out.println(child.getX() + "," +child.getY() + " " + child.getIsTank());
-
 
         return child;
 
