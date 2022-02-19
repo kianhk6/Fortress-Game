@@ -1,17 +1,17 @@
 package com.company;
 
-import java.util.Locale;
 import java.util.Scanner;
 
-import java.util.ArrayList;
-
 public class UserInterface {
+    public static final String INTRODUCTION = "----------------------------\n" + "Welcome to Fortress Defense!\n" +
+            "by Kian and Sahsa\n" +
+            "----------------------------\n";
     private GameLogic game;
     private Boolean cheat;
 
     char[] rowLetter = new char[10];
 
-    public UserInterface(GameLogic game, boolean cheat) {
+    public UserInterface(GameLogic game) {
         this.game = game;
         this.cheat = cheat;
         rowLetter[0] = 'A';
@@ -40,7 +40,6 @@ public class UserInterface {
             }
             System.out.println();
         }
-        printFortressHealth();
     }
 
     public void printTankArray() {
@@ -61,7 +60,6 @@ public class UserInterface {
         int currentFortressHealth = game.getFortressHealth();
         int newFortressHealth = currentFortressHealth - totalTankAttackDamage;
         game.setFortressHealth(newFortressHealth);
-        printFortressHealth();
     }
 
     public void printFortressHealth() {
@@ -75,9 +73,19 @@ public class UserInterface {
         }
         return -1; //invalid input
     }
-    public void run(){
-        while(game.getGameFinished()){
+    public void run(Boolean cheat){
+        if(cheat){
             printGameBoardCheat();
+            printFortressHealth();
+            System.out.println("(Lower case tank letters are where you shot.)");
+            System.out.println("\n");
+            System.out.println("starting in game with " + game.getNumOfTanks() + "tanks");
+            System.out.println(INTRODUCTION);
+
+        }
+        while(!game.getGameFinished()){
+            printGameBoard();
+            printFortressHealth();
                 Boolean didHit = game.userTurn(getUserInput());
                 if(didHit){
                     System.out.println("HIT!");
@@ -88,8 +96,13 @@ public class UserInterface {
                     printTankArray();
                 }
         }
-
-
+        if(game.getUserTheWinner()){
+            System.out.println("Congratulations! You won!");
+        }
+        else{
+            System.out.println("I'm sorry, your fortress has been smashed!");
+        }
+        printGameBoardCheat();
     }
 
     private void printGameBoardCheat() {
@@ -106,22 +119,25 @@ public class UserInterface {
             }
             System.out.println();
         }
-        printFortressHealth();
     }
 
     public int[] getUserInput() {
         System.out.println("Enter your move: ");
         Scanner scan = new Scanner(System.in);
         String userCord = scan.next();
-        while(userCord.length() != 2){
-            System.out.println("input too short");
+        while(userCord.length() > 3 || userCord.length() < 2){
+            System.out.println("Bad input");
             scan = new Scanner(System.in);
             userCord = scan.next();
         }
         int x = convertUserXToGrid(userCord.charAt(0));
         int y = Character.getNumericValue(userCord.charAt(1)) - 1;
+        if(userCord.substring(1,3).equalsIgnoreCase("10")){
+            y = 9;
+        }
+
         while(x < 0 || y < 0 || x > 9 || y > 9){
-            System.out.println("please input an correct task, the coordinate is out of bound");
+            System.out.println("Bad input");
             userCord = scan.next();
             x = convertUserXToGrid(userCord.charAt(0));
             y = Character.getNumericValue(userCord.charAt(1)) - 1;
@@ -129,6 +145,7 @@ public class UserInterface {
         int[] coordinates = new int[2];
         coordinates[0] = x;
         coordinates[1] = y;
+
         return coordinates;
     }
 }

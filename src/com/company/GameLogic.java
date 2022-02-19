@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.tan;
 
 public class GameLogic {
     private int FortressHealth;
@@ -57,18 +58,18 @@ public class GameLogic {
                     cheatGrid[i][j] = getTankChar(logicGrid.getCell(i,j));
                 }
                 if(logicGrid.isCellHit(i, j) && !logicGrid.isCellTank(i, j)){
-                    UIGrid[i][j] = 'X';
+                    cheatGrid[i][j] = ' ';
+                    UIGrid[i][j] = ' ';
                 }
                 else if(logicGrid.isCellHit(i, j) && logicGrid.isCellTank(i, j)){
-                    UIGrid[i][j] = ' ';
+                    cheatGrid[i][j] = Character.toLowerCase(getTankChar(logicGrid.getCell(i,j)));
+                    UIGrid[i][j] = 'X';
                 }
             }
         }
     }
     private char getTankChar(Cell cell){
-
         return TankLetter[cell.getWhichTank()];
-//        return TankLetter[cell.getWhichTank()];
     }
     //Game Logic
     private ArrayList<Cell> getChildren(int x, int y){
@@ -202,13 +203,16 @@ public class GameLogic {
     }
 
     public Boolean getUserTheWinner() {
-        return isUserTheWinner;
+        if(areAllTanksDead()){
+            return true;
+        }
+        return false;
     }
 
 
 
     public Boolean getGameFinished() {
-        if(FortressHealth == 0 || areAllTanksDead()){
+        if(areAllTanksDead()){
             return true;
         }
         else{
@@ -218,6 +222,9 @@ public class GameLogic {
     }
 
     private boolean areAllTanksDead() {
+        if(tankArray.size() == 0){
+            return false;
+        }
         for(Tank tank : tankArray){
             if(tank.getTankHealth() != 0){
                 return false;

@@ -10,7 +10,8 @@ public class Tank {
 
 
     public Tank() {
-        //Tank Constructor
+        tankHealth = 5;
+        tankAttackDMG = 20;
     }
     public boolean addCell(Cell cell){
         if(!tankCells.contains(cell)){

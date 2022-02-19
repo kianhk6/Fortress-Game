@@ -4,9 +4,9 @@ public class Main {
 
     public static void main(String[] args) {
         Grid grid = new Grid();
-        GameLogic game = new GameLogic(1, grid);
-        UserInterface UI = new UserInterface(game, false);
-        UI.run();
+        GameLogic game = new GameLogic(10, grid);
+        UserInterface UI = new UserInterface(game);
+        UI.run(true);
 
 	// write your code here
         //hi
