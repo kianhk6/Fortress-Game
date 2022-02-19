@@ -5,18 +5,15 @@ import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.tan;
 
 public class GameLogic {
     private int FortressHealth;
-    private int numOfTanks;
-    private Boolean isUserTheWinner;
-    private Boolean isGameFinished;
+    private final int numOfTanks;
     protected char[][] UIGrid = new char[10][10];
     protected char[][] cheatGrid = new char[10][10];
     Grid logicGrid;
 
-    private char[] TankLetter = new char[10];
+    private final char[] TankLetter = new char[10];
     List<Tank> tankArray = new ArrayList<>();
 
 
@@ -45,8 +42,6 @@ public class GameLogic {
         TankLetter[7] = 'H';
         TankLetter[8] = 'I';
         TankLetter[9] = 'J';
-        isUserTheWinner = false;
-        isGameFinished = false;
         generateTanks();
 
     }
@@ -126,10 +121,6 @@ public class GameLogic {
             while(tank.tankCells.size() < 5){
                 //adding children from this place
                 ArrayList<Cell> nextChildChildren = getChildren(current.getX(), current.getY());
-                if(current == null){
-                    current = current.getParent();
-                    addFrom(current.getParent(), tank, i);
-                }
                 if(nextChildChildren.size() != 0){
                     //current = current->next
                     current = addFrom(current, tank, i);
@@ -150,9 +141,6 @@ public class GameLogic {
         Random rand = new Random();
         ArrayList<Cell> Children = getChildren(origin.getX(), origin.getY());
         int size = Children.size();
-        if(Children.size() < 0){
-            size = 0;
-        }
         int randomChildIndex = rand.nextInt(size);
         //make the cell to tank
         Cell child = Children.get(randomChildIndex);
@@ -198,27 +186,15 @@ public class GameLogic {
         return numOfTanks;
     }
 
-    public void setNumOfTanks(int numOfTanks) {
-        this.numOfTanks = numOfTanks;
-    }
 
     public Boolean getUserTheWinner() {
-        if(areAllTanksDead()){
-            return true;
-        }
-        return false;
+        return areAllTanksDead();
     }
 
 
 
     public Boolean getGameFinished() {
-        if(areAllTanksDead()){
-            return true;
-        }
-        else{
-            return false;
-        }
-
+        return areAllTanksDead();
     }
 
     private boolean areAllTanksDead() {

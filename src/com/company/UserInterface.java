@@ -3,17 +3,18 @@ package com.company;
 import java.util.Scanner;
 
 public class UserInterface {
-    public static final String INTRODUCTION = "----------------------------\n" + "Welcome to Fortress Defense!\n" +
-            "by Kian and Sahsa\n" +
-            "----------------------------\n";
-    private GameLogic game;
-    private Boolean cheat;
+    public static final String INTRODUCTION = """
+            ----------------------------
+            Welcome to Fortress Defense!
+            by Kian and Sasha
+            ----------------------------
+            """;
+    private final GameLogic game;
 
     char[] rowLetter = new char[10];
 
     public UserInterface(GameLogic game) {
         this.game = game;
-        this.cheat = cheat;
         rowLetter[0] = 'A';
         rowLetter[1] = 'B';
         rowLetter[2] = 'C';
@@ -27,7 +28,7 @@ public class UserInterface {
     }
 
     public void printGameBoard() {
-        char[][] gameBoard = cheat ? game.getCheatGrid() : game.getUIGrid();
+        char[][] gameBoard = game.getUIGrid();
         System.out.printf("%s", "       ");
         for (int i = 1; i < 11; i++) {
             System.out.printf("%d  ", i);

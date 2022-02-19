@@ -4,8 +4,8 @@ public class Cell {
     //Cell
     private boolean isTank;
     private boolean isHit;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private Cell parent;
 
     //there are 5 tanks, and we need to decide which tank the cell
@@ -54,16 +54,6 @@ public class Cell {
     // +gotHit(object:cell):void
     protected void setHit() {
         isHit = true;
-    }
-
-    // + setX(number:integer):void
-    protected void setX(int newX) {
-        x = newX;
-    }
-
-    // + setY(number:integer):void
-    protected void setY(int newY) {
-        y = newY;
     }
 
     public Cell getParent() {

@@ -13,12 +13,10 @@ public class Tank {
         tankHealth = 5;
         tankAttackDMG = 20;
     }
-    public boolean addCell(Cell cell){
+    public void addCell(Cell cell){
         if(!tankCells.contains(cell)){
             tankCells.add(cell);
-            return true;
         }
-        return false;
     }
 
     public void calcTankAttackDMG() {
