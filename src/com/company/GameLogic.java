@@ -7,7 +7,6 @@ import java.util.Random;
 import static java.lang.Math.abs;
 
 public class GameLogic {
-    private Boolean isUserTurn;
     private int FortressHealth;
     private int numOfTanks;
     private Boolean isUserTheWinner;
@@ -19,9 +18,7 @@ public class GameLogic {
     private char[] TankLetter = new char[10];
     List<Tank> tankArray = new ArrayList<>();
 
-    public char[] getTankLetter() {
-        return TankLetter;
-    }
+
 
     public List<Tank> getTankArray() {
         return tankArray;
@@ -47,6 +44,10 @@ public class GameLogic {
         TankLetter[7] = 'H';
         TankLetter[8] = 'I';
         TankLetter[9] = 'J';
+        isUserTheWinner = false;
+        isGameFinished = false;
+        generateTanks();
+
     }
 
     private void updateGameboard(){
@@ -54,6 +55,12 @@ public class GameLogic {
             for(int j = 0; j < 10; j++){
                 if(logicGrid.isCellTank(i,j)){
                     cheatGrid[i][j] = getTankChar(logicGrid.getCell(i,j));
+                }
+                if(logicGrid.isCellHit(i, j) && !logicGrid.isCellTank(i, j)){
+                    UIGrid[i][j] = 'X';
+                }
+                else if(logicGrid.isCellHit(i, j) && logicGrid.isCellTank(i, j)){
+                    UIGrid[i][j] = ' ';
                 }
             }
         }
@@ -118,6 +125,10 @@ public class GameLogic {
             while(tank.tankCells.size() < 5){
                 //adding children from this place
                 ArrayList<Cell> nextChildChildren = getChildren(current.getX(), current.getY());
+                if(current == null){
+                    current = current.getParent();
+                    addFrom(current.getParent(), tank, i);
+                }
                 if(nextChildChildren.size() != 0){
                     //current = current->next
                     current = addFrom(current, tank, i);
@@ -132,12 +143,16 @@ public class GameLogic {
         updateGameboard();
     }
 
-//it over writes
+//it overwrites
     private Cell addFrom(Cell origin, Tank tank, int tankId) {
         //select which child
         Random rand = new Random();
         ArrayList<Cell> Children = getChildren(origin.getX(), origin.getY());
-        int randomChildIndex = rand.nextInt(Children.size());
+        int size = Children.size();
+        if(Children.size() < 0){
+            size = 0;
+        }
+        int randomChildIndex = rand.nextInt(size);
         //make the cell to tank
         Cell child = Children.get(randomChildIndex);
 
@@ -147,17 +162,28 @@ public class GameLogic {
         child.setParent(origin);
 
         return child;
+    }
+
+
+    //returns if its users turn
+    public Boolean userTurn(int[] coordinates){
+        int x = coordinates[0];
+        int y =  coordinates[1];
+
+        if(logicGrid.isCellTank(x, y)){
+            logicGrid.setHit(x, y);
+            updateGameboard();
+            return true;
+        }
+        else{
+            logicGrid.setHit(x, y);
+            updateGameboard();
+            return false;
+        }
 
 
     }
 
-    public Boolean getUserTurn() {
-        return isUserTurn;
-    }
-
-    public void setUserTurn(Boolean userTurn) {
-        isUserTurn = userTurn;
-    }
 
     public int getFortressHealth() {
         return FortressHealth;
@@ -179,31 +205,39 @@ public class GameLogic {
         return isUserTheWinner;
     }
 
-    public void setUserTheWinner(Boolean userTheWinner) {
-        isUserTheWinner = userTheWinner;
-    }
+
 
     public Boolean getGameFinished() {
-        return isGameFinished;
+        if(FortressHealth == 0 || areAllTanksDead()){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
-    public void setGameFinished(Boolean gameFinished) {
-        isGameFinished = gameFinished;
+    private boolean areAllTanksDead() {
+        for(Tank tank : tankArray){
+            if(tank.getTankHealth() != 0){
+                return false;
+            }
+        }
+        return true;
     }
+
 
     public char[][] getUIGrid() {
         return UIGrid;
     }
 
-    public void setUIGrid(char[][] UIGrid) {
-        this.UIGrid = UIGrid;
-    }
+
 
     public char[][] getCheatGrid() {
         return cheatGrid;
     }
 
-    public void setCheatGrid(char[][] cheatGrid) {
-        this.cheatGrid = cheatGrid;
-    }
+
+
+
 }

@@ -74,16 +74,49 @@ public class UserInterface {
             }
         }
         return -1; //invalid input
+    }
+    public void run(){
+        while(game.getGameFinished()){
+            printGameBoardCheat();
+                Boolean didHit = game.userTurn(getUserInput());
+                if(didHit){
+                    System.out.println("HIT!");
+                    printTankArray();
+                }
+                else{
+                    System.out.println("Miss.");
+                    printTankArray();
+                }
+        }
+
 
     }
+
+    private void printGameBoardCheat() {
+        char[][] gameBoard = game.getCheatGrid();
+        System.out.printf("%s", "       ");
+        for (int i = 1; i < 11; i++) {
+            System.out.printf("%d  ", i);
+        }
+        System.out.println();
+        for (int i = 0; i < 10; i++) {
+            System.out.printf("    %c  ", rowLetter[i]);
+            for (int j = 0; j < 10; j++) {
+                System.out.printf("%c  ", gameBoard[i][j]);
+            }
+            System.out.println();
+        }
+        printFortressHealth();
+    }
+
     public int[] getUserInput() {
+        System.out.println("Enter your move: ");
         Scanner scan = new Scanner(System.in);
         String userCord = scan.next();
         while(userCord.length() != 2){
             System.out.println("input too short");
             scan = new Scanner(System.in);
             userCord = scan.next();
-
         }
         int x = convertUserXToGrid(userCord.charAt(0));
         int y = Character.getNumericValue(userCord.charAt(1)) - 1;
