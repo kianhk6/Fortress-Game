@@ -1,11 +1,16 @@
 package com.company;
 
 
+import com.google.gson.Gson;
+
+//Type  java -jar out/artifacts/game_jar/game.jar [numTanks] [cheat] to play!
+
 public class Main {
     private static boolean IsCheat;
 
     public static void main(String[] args) {
 
+        Gson gson = new Gson();
 
         IsCheat = false;
         int numOfTanks = 5;

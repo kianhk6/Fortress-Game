@@ -126,8 +126,11 @@ public class GameLogic {
                     current = addFrom(current, tank, i);
                 }
                 else{
-                    current = current.getParent();
-                    addFrom(current.getParent(), tank, i);
+                    System.out.println(current);
+                        current = current.getParent();
+                    System.out.println(current);
+                        addFrom(current, tank, i);
+
                 }
             }
             tankArray.add(tank);
@@ -139,19 +142,28 @@ public class GameLogic {
     private Cell addFrom(Cell origin, Tank tank, int tankId) {
         //select which child
         Random rand = new Random();
-        ArrayList<Cell> Children = getChildren(origin.getX(), origin.getY());
-        int size = Children.size();
-        if(size < 0){
-            size = 0;
-        }
-        int randomChildIndex = rand.nextInt(size);
-        //make the cell to tank
-        Cell child = Children.get(randomChildIndex);
+            ArrayList<Cell> Children = getChildren(origin.getX(), origin.getY());
 
-        logicGrid.setTank(child.getX(), child.getY());
-        child.setWhichTank(tankId);
-        tank.addCell(child);
-        child.setParent(origin);
+            int size = Children.size();
+            if (size < 1) {
+                size = 1;
+                //System.out.println("size1 : " + size);
+            }
+
+
+            int randomChildIndex = rand.nextInt(size); // size have to be at least 1.
+            //make the cell to tank
+        try {
+            Children.get(randomChildIndex);
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("The fog is setting in. Nothing to report today.");
+        }
+            Cell child = Children.get(randomChildIndex);
+
+                logicGrid.setTank(child.getX(), child.getY());
+            child.setWhichTank(tankId);
+            tank.addCell(child);
+            child.setParent(origin);
 
         return child;
     }
@@ -197,7 +209,7 @@ public class GameLogic {
 
 
     public Boolean getGameFinished() {
-        return areAllTanksDead() || FortressHealth == 0;
+        return areAllTanksDead() || FortressHealth <= 0;
     }
 
     private boolean areAllTanksDead() {

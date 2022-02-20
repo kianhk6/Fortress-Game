@@ -51,7 +51,9 @@ public class UserInterface {
             tank.calcTankHP();
             tank.calcTankAttackDMG();
             totalTankAttackDMG = totalTankAttackDMG + tank.getTankAttackDMG();
-            System.out.println("Alive tank #" + i + " of " + tankList.size() + " shot you for " + tank.getTankAttackDMG());
+            if (tank.getTankHealth() != 0) {
+                System.out.println("Alive tank #" + i + " of " + tankList.size() + " shot you for " + tank.getTankAttackDMG());
+            }
             i++;
         }
         damageFortressHealth(totalTankAttackDMG);
