@@ -22,8 +22,5 @@ public class Main {
         GameLogic game = new GameLogic(numOfTanks, grid);
         UserInterface UI = new UserInterface(game);
         UI.run(IsCheat);
-
-	// write your code here
-        //hi
     }
 }
