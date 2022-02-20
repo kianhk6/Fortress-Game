@@ -194,7 +194,7 @@ public class GameLogic {
 
 
     public Boolean getGameFinished() {
-        return areAllTanksDead();
+        return areAllTanksDead() || FortressHealth == 0;
     }
 
     private boolean areAllTanksDead() {
