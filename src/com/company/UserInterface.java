@@ -130,11 +130,13 @@ public class UserInterface {
             System.out.println("Bad input");
             scan = new Scanner(System.in);
             userCord = scan.next();
+            userCord.trim();
         }
         while( userCord.length() == 3 && !userCord.substring(1,3).equalsIgnoreCase("10")){
             System.out.println("Bad input");
             scan = new Scanner(System.in);
             userCord = scan.next();
+            userCord.trim();
         }
         int x = convertUserXToGrid(userCord.charAt(0));
         int y = Character.getNumericValue(userCord.charAt(1)) - 1;
