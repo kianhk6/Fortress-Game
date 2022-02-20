@@ -1,16 +1,16 @@
 package com.company;
-import com.google.gson.Gson;
+
 
 public class Main {
     private static boolean IsCheat;
 
     public static void main(String[] args) {
-        Gson gson  = new Gson();
+
 
         IsCheat = false;
         int numOfTanks = 5;
         if(args.length != 0){
-            numOfTanks = Character.getNumericValue(args[0].charAt(0));
+            numOfTanks = (Integer.parseInt(args[0]));
             if(numOfTanks == -1){
                 numOfTanks = 5;
             }

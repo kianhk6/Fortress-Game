@@ -141,6 +141,9 @@ public class GameLogic {
         Random rand = new Random();
         ArrayList<Cell> Children = getChildren(origin.getX(), origin.getY());
         int size = Children.size();
+        if(size < 0){
+            size = 0;
+        }
         int randomChildIndex = rand.nextInt(size);
         //make the cell to tank
         Cell child = Children.get(randomChildIndex);
