@@ -6,13 +6,17 @@ public class Main {
 
     public static void main(String[] args) {
         IsCheat = false;
-        int numOfTanks = Character.getNumericValue(args[0].charAt(0));
-        if(numOfTanks == -1){
-            numOfTanks = 5;
+        int numOfTanks = 5;
+        if(args.length != 0){
+            numOfTanks = Character.getNumericValue(args[0].charAt(0));
+            if(numOfTanks == -1){
+                numOfTanks = 5;
+            }
+            if(args[1].equals("--cheat")){
+                IsCheat = true;
+            }
         }
-        if(args[1].equals("--cheat")){
-            IsCheat = true;
-        }
+
 
         Grid grid = new Grid();
         GameLogic game = new GameLogic(numOfTanks, grid);
