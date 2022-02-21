@@ -126,15 +126,33 @@ public class GameLogic {
                     current = addFrom(current, tank, i);
                 }
                 else{
-                    System.out.println(current);
+                    while(getChildren(current.getX(), current.getY()).size() == 0 && current.getParent() != null ){
                         current = current.getParent();
-                    System.out.println(current);
-                        addFrom(current, tank, i);
-
+                    }
+                    current = addFrom(current, tank, i);
+                    if(current == null){
+                        regenerateTank();
+                        return;
+                    }
                 }
             }
             tankArray.add(tank);
         }
+        updateGameboard();
+    }
+    private void regenerateTank(){
+        System.out.println("recalculate");
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 10; j++){
+                logicGrid.setNotTank(i,j);
+            }
+        }
+        for(Tank tank : tankArray){
+            tank.removeCells();
+        }
+        tankArray.clear();
+        updateGameboard();
+        generateTanks();
         updateGameboard();
     }
 
@@ -142,25 +160,21 @@ public class GameLogic {
     private Cell addFrom(Cell origin, Tank tank, int tankId) {
         //select which child
         Random rand = new Random();
-            ArrayList<Cell> Children = getChildren(origin.getX(), origin.getY());
+        ArrayList<Cell> Children = getChildren(origin.getX(), origin.getY());
 
-            int size = Children.size();
-            if (size < 1) {
-                size = 1;
-                //System.out.println("size1 : " + size);
-            }
+        int size = Children.size();
+        if (size < 1) {
+            return null;
+            //System.out.println("size1 : " + size);
+        }
 
 
             int randomChildIndex = rand.nextInt(size); // size have to be at least 1.
-            //make the cell to tank
-        try {
-            Children.get(randomChildIndex);
-        } catch (IndexOutOfBoundsException e) {
-            System.err.println("The fog is setting in. Nothing to report today.");
-        }
+            //make the cell to tan
+
             Cell child = Children.get(randomChildIndex);
 
-                logicGrid.setTank(child.getX(), child.getY());
+        logicGrid.setTank(child.getX(), child.getY());
             child.setWhichTank(tankId);
             tank.addCell(child);
             child.setParent(origin);

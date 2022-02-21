@@ -34,4 +34,10 @@ public class Grid {
         return grid[x][y];
     }
 
+    public void setNotTank(int i, int j) {
+        Cell cell = grid[i][j];
+        cell.setNotTank();
+
+
+    }
 }

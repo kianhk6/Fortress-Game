@@ -18,6 +18,10 @@ public class Tank {
             tankCells.add(cell);
         }
     }
+    public void removeCells(){
+        tankCells.clear();
+
+    }
 
     public void calcTankAttackDMG() {
         switch (tankHealth) {

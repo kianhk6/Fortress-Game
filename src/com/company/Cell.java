@@ -21,7 +21,9 @@ public class Cell {
         //-1 in beginning since we haven't decided if it's a tank
         whichTank = -1;
     }
-
+    protected void setNotTank(){
+        isTank = false;
+    }
     protected void setWhichTank(int tankNum){
         whichTank = tankNum;
     }
