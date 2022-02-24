@@ -1,3 +1,8 @@
+/** UserInterface class is responsible for handling user input and outputting game logic decisions.
+ * UI contains a GameLogic object alongside several functions that are used to get and output data from GameLogic.
+ * UI also contains a Scanner within a function which is used for getting user input and processing it for GameLogic.
+ * UI additionally has a character array which is used for game board row designation.
+*/
 package com.company;
 
 import java.util.Scanner;
@@ -66,7 +71,7 @@ public class UserInterface {
     }
 
     public void printFortressHealth() {
-        System.out.println("Fortress Health remaining: " + game.getFortressHealth());
+        System.out.println("Fortress health remaining: " + game.getFortressHealth());
     }
     public int convertUserXToGrid(char usr){
         for(int i = 0; i < 10; i++){
@@ -82,7 +87,7 @@ public class UserInterface {
             printFortressHealth();
             System.out.println("(Lower case tank letters are where you shot.)");
             System.out.println("\n");
-            System.out.println("starting in game with " + game.getNumOfTanks() + "tanks");
+            System.out.println("There are " + game.getNumOfTanks() + " tanks approaching.");
             System.out.println(INTRODUCTION);
 
         }
@@ -100,10 +105,10 @@ public class UserInterface {
                 }
         }
         if(game.getUserTheWinner()){
-            System.out.println("Congratulations! You won!");
+            System.out.println("Congratulations! You have defended the fortress!");
         }
         else{
-            System.out.println("I'm sorry, your fortress has been smashed!");
+            System.out.println("Oh no! The tanks have destroyed the fortress!" );
         }
         printGameBoardCheat();
     }

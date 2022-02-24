@@ -1,3 +1,9 @@
+/** The tank class models which cells on the Gameboard are grouped together as individual tanks.
+ * Every tank has health, attack damage, and an arrayList of cells from the Grid.
+ * Functions provided calculate the health of the tank, and how much damage it will do
+ * based on its own health.
+ */
+
 package com.company;
 import java.util.ArrayList;
 import java.util.List;

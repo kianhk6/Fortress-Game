@@ -1,3 +1,9 @@
+/** GameLogic class is responsible for processing data from the UI and making a decision afterwards.
+ * Data included is the fortress health, the number of tanks, a 2D array for the UI, a 2D cheat UI array,
+ * an array of tank identifiers, and a grid for game logic. The primary function of GameLogic is to generate
+ * tanks and manage the user's turn.
+ */
+
 package com.company;
 
 import java.util.ArrayList;

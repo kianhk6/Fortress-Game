@@ -1,3 +1,9 @@
+/** The Cell class is used to model the status of every cell individually on the Gameboard.
+ * It manages whether the cell is a tank, hit, and what its coordinates on the Gameboard are.
+ * It also keeps track of its parent Cell, which is the Cell that precedes it during tank generation.
+ * All functions are getters and setters.
+ */
+
 package com.company;
 
 public class Cell {

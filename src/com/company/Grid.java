@@ -1,3 +1,9 @@
+/** The Grid class contains the Cell grid upon which the GameLogic operates on.
+ * Data included is a 10x10 grid of Cells. Function responsibilities return the
+ * status of individual cells based on a given set of x and y coordinates.
+ *
+ */
+
 package com.company;
 
 public class Grid {
