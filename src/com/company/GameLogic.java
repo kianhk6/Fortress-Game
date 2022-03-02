@@ -97,6 +97,7 @@ public class GameLogic {
         }
         return children;
     }
+
     public void generateTanks(){
         for(int i = 0; i < numOfTanks; i++){
             Random rand = new Random();
@@ -146,6 +147,7 @@ public class GameLogic {
         }
         updateGameboard();
     }
+    //If an invalid tank generates, the tank is regenerated instead of crashing the game
     private void regenerateTank(){
         System.out.println("recalculate");
         for(int i = 0; i < 10; i++){
@@ -162,7 +164,7 @@ public class GameLogic {
         updateGameboard();
     }
 
-//it overwrites
+//This reliably makes tank cells adjacent and randomly placed
     private Cell addFrom(Cell origin, Tank tank, int tankId) {
         //select which child
         Random rand = new Random();
@@ -173,7 +175,6 @@ public class GameLogic {
             return null;
             //System.out.println("size1 : " + size);
         }
-
 
             int randomChildIndex = rand.nextInt(size); // size have to be at least 1.
             //make the cell to tan
@@ -221,12 +222,9 @@ public class GameLogic {
         return numOfTanks;
     }
 
-
     public Boolean getUserTheWinner() {
         return areAllTanksDead();
     }
-
-
 
     public Boolean getGameFinished() {
         return areAllTanksDead() || FortressHealth <= 0;
