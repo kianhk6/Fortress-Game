@@ -1,0 +1,54 @@
+
+
+How the board will be generated and displayed:
+
+The player uses the terminal to input the number of tanks (minimum five) that they wish to play against. This value is passed down into Main through an argument parameter and stored in a variable tankNumberInput. A Game Logic object is instantiated, taking the tankNumberInput in as a parameter. As part of its constructor, a Grid object is instantiated within Game Logic. The Grid object initializes a type Cell 2D array with dimensions 10 by 10. The Game Logic also initializes a 2D char array with the same dimension sizes as the Cell array (10x10), this char array is used in the UI to provide the gameboard to the user. 
+
+The Game Logic object will then call a function generateTanks() which will populate the game board with tanks. The function will first call a loop that will run tankNumberInput times. In each iteration of this loop, a tank object will be initialized that constructs an empty array of type Cell. After initialization, a random cell on the 2D Grid array that is not a tank cell will be selected. Once the random cell is chosen, a nested loop will run. This nested loop will flip the cell’s isTank:boolean to true and then store that cell in the tank object’s array. Once this is done, an adjacent non-tank cell will be selected, and the process will repeat five times/until there are 5 tank cells in the tank object array. This function produces tankNumberInput amount of tank objects that contain an array of five cells each to identify which tank cell belongs to what tank.
+Back in Main, a UI object can now be initialized that takes the Game Logic object in as a parameter. This Game Logic already has a grid with tanks so the UI class just has to display it using the char 2d array which is used to correspond with the positions of cells in the Cell array. The UI then calls the printGameBoard() function, which in turn calls a function in Game Logic called getUIarray() that returns the 2D char array. The char array is printed, and the game board is displayed to the user.
+
+
+Abstract pseudocode:
+
+For each tank out of numOfTanks{
+	out of 10 by 10 cell we generate 2 random number for x and y using modulo 10
+	it initialize an tank object and adds the first tank cell to the tank arraylist if the tank gets hit the arraylist tank gets hit as well
+		we do this 5 times and everytime we check corner case or tank if its available
+		{
+			if they are corner cases{
+				Choose one of the available options
+			}
+			they are not corner case{
+				each one have neighbors up down left right but we choose the available ones based on them not being tank
+				we do random%numOfAvailable ⇒ choose we should add the neighbor to
+			}	
+			add the cell chosen cell to the tank array list
+			move to the added cell
+		}
+	}
+
+
+How the user takes a turn:
+
+Once the game logic and UI have been instantiated and are ready to go, the Game logic initially sets isUserTurn: boolean to true. UI runs a function called run() which starts the game. A while loop is created that runs as long as the (isGameFinished != false) returns true. The UI then checks if Game Logic’s isUserTurn is true or false.
+
+If true, the user is prompted to enter a character from A-J and a number from 1-10 in the terminal with no spaces in between such as A1. The convertUserXtoGrid() changes the letter value to a valid x coordinate then the input is used as a parameter for UserTurn(Int x, int y) in gameLogic. Then gameLogic returns if the hit is successful or not and the UI manipulates this output to give an output for the user.
+
+If false, the user is not prompted to do anything, as it is the tank’s turn. The Game Logic uses an advanced for-each loop on its list of tanks, calling calcAttack() and calculating the damage to the fortress then the UI gives output, printing out the updated fortress health as well as a list of all living tanks and their health status. 
+
+Once a turn has been completed, the final line of the loop calls the Game Logic’s changeTurn() function, flipping the isUserTurn boolean and thus changing the turn that will be executed on the next iteration of the while loop.
+
+Really abstract pseudo-code:
+while(!G.done()){
+	If (G.isUserTurn()) {
+  	//does the user turn
+	}
+	If (!G.isUserTurn()) {
+  	//does tank stuff
+	}
+
+	G.changedTurn();
+
+}
+
+
