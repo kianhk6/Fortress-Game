@@ -1,23 +1,17 @@
-/** Main Class
- * The main class initiates the fortress defense game, and is where the JAR file runs from.
- * It accepts up to two arguments by the user from the terminal, being the number of tanks and whether cheat is enabled.
- * It contains a Grid object, a GameLogic object, and a UI object.
- */
-
 package com.company;
 
 import com.google.gson.Gson;
 
 //Type  java -jar out/artifacts/game_jar/game.jar [numTanks] [cheat] to play!
-
+/** Main Class
+ * The main class initiates the fortress defense game, and is where the JAR file runs from.
+ * It accepts up to two arguments by the user from the terminal, being the number of tanks and whether cheat is enabled.
+ * It contains a Grid object, a GameLogic object, and a UI object.
+ */
 public class Main {
     private static boolean IsCheat;
 
     public static void main(String[] args) {
-
-        System.out.println(args.length);
-        Gson gson = new Gson();
-
         IsCheat = false;
         int numOfTanks = 5;
         if(args.length != 0) {

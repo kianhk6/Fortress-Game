@@ -1,32 +1,30 @@
+package com.company;
+import java.util.ArrayList;
+import java.util.List;
+
 /** The tank class models which cells on the Gameboard are grouped together as individual tanks.
  * Every tank has health, attack damage, and an arrayList of cells from the Grid.
  * Functions provided calculate the health of the tank, and how much damage it will do
  * based on its own health.
  */
-
-package com.company;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Tank {
     private int tankHealth;
     private int tankAttackDMG;
     List<Cell> tankCells = new ArrayList<>();
 
-
-
     public Tank() {
         tankHealth = 5;
         tankAttackDMG = 20;
     }
+
     public void addCell(Cell cell){
         if(!tankCells.contains(cell)){
             tankCells.add(cell);
         }
     }
+
     public void removeCells(){
         tankCells.clear();
-
     }
 
     public void calcTankAttackDMG() {

@@ -1,21 +1,19 @@
+package com.company;
+import java.util.Scanner;
+
 /** UserInterface class is responsible for handling user input and outputting game logic decisions.
  * UI contains a GameLogic object alongside several functions that are used to get and output data from GameLogic.
  * UI also contains a Scanner within a function which is used for getting user input and processing it for GameLogic.
  * UI additionally has a character array which is used for game board row designation.
-*/
-package com.company;
-
-import java.util.Scanner;
-
+ */
 public class UserInterface {
-    public static final String INTRODUCTION = """
+    private static final String INTRODUCTION = """
             ----------------------------
             Welcome to Fortress Defense!
             by Kian and Sasha
             ----------------------------
             """;
     private final GameLogic game;
-
     char[] rowLetter = new char[10];
 
     public UserInterface(GameLogic game) {
@@ -89,7 +87,6 @@ public class UserInterface {
             System.out.println("\n");
             System.out.println("There are " + game.getNumOfTanks() + " tanks approaching.");
             System.out.println(INTRODUCTION);
-
         }
         while(!game.getGameFinished()){
             printGameBoard();
@@ -145,9 +142,9 @@ public class UserInterface {
             userCord = scan.next();
             userCord.trim();
         }
+
         int x = convertUserXToGrid(userCord.charAt(0));
         int y = Character.getNumericValue(userCord.charAt(1)) - 1;
-
         if(userCord.length() == 3 && userCord.substring(1,3).equalsIgnoreCase("10")){
             y = 9;
         }
@@ -158,10 +155,10 @@ public class UserInterface {
             x = convertUserXToGrid(userCord.charAt(0));
             y = Character.getNumericValue(userCord.charAt(1)) - 1;
         }
+
         int[] coordinates = new int[2];
         coordinates[0] = x;
         coordinates[1] = y;
-
         return coordinates;
     }
 }

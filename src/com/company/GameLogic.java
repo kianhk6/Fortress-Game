@@ -1,9 +1,3 @@
-/** GameLogic class is responsible for processing data from the UI and making a decision afterwards.
- * Data included is the fortress health, the number of tanks, a 2D array for the UI, a 2D cheat UI array,
- * an array of tank identifiers, and a grid for game logic. The primary function of GameLogic is to generate
- * tanks and manage the user's turn.
- */
-
 package com.company;
 
 import java.util.ArrayList;
@@ -11,18 +5,19 @@ import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.abs;
-
+/** GameLogic class is responsible for processing data from the UI and making a decision afterwards.
+ * Data included is the fortress health, the number of tanks, a 2D array for the UI, a 2D cheat UI array,
+ * an array of tank identifiers, and a grid for game logic. The primary function of GameLogic is to generate
+ * tanks and manage the user's turn.
+ */
 public class GameLogic {
     private int FortressHealth;
     private final int numOfTanks;
     protected char[][] UIGrid = new char[10][10];
     protected char[][] cheatGrid = new char[10][10];
-    Grid logicGrid;
-
     private final char[] TankLetter = new char[10];
+    Grid logicGrid;
     List<Tank> tankArray = new ArrayList<>();
-
-
 
     public List<Tank> getTankArray() {
         return tankArray;
@@ -49,7 +44,6 @@ public class GameLogic {
         TankLetter[8] = 'I';
         TankLetter[9] = 'J';
         generateTanks();
-
     }
 
     private void updateGameboard(){
@@ -69,10 +63,12 @@ public class GameLogic {
             }
         }
     }
+
     private char getTankChar(Cell cell){
         return TankLetter[cell.getWhichTank()];
     }
-    //Game Logic
+
+
     private ArrayList<Cell> getChildren(int x, int y){
         ArrayList<Cell> children = new ArrayList<>();
         if(x < 9 ){
@@ -129,11 +125,10 @@ public class GameLogic {
                 //adding children from this place
                 ArrayList<Cell> nextChildChildren = getChildren(current.getX(), current.getY());
                 if(nextChildChildren.size() != 0){
-                    //current = current->next
                     current = addFrom(current, tank, i);
                 }
                 else{
-                    while(getChildren(current.getX(), current.getY()).size() == 0 && current.getParent() != null ){
+                    while(getChildren(current.getX(), current.getY()).size() == 0 && current.getParent() != null){
                         current = current.getParent();
                     }
                     current = addFrom(current, tank, i);
@@ -149,7 +144,6 @@ public class GameLogic {
     }
     //If an invalid tank generates, the tank is regenerated instead of crashing the game
     private void regenerateTank(){
-        System.out.println("recalculate");
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 logicGrid.setNotTank(i,j);
@@ -169,23 +163,16 @@ public class GameLogic {
         //select which child
         Random rand = new Random();
         ArrayList<Cell> Children = getChildren(origin.getX(), origin.getY());
-
         int size = Children.size();
         if (size < 1) {
             return null;
-            //System.out.println("size1 : " + size);
         }
-
-            int randomChildIndex = rand.nextInt(size); // size have to be at least 1.
-            //make the cell to tan
-
-            Cell child = Children.get(randomChildIndex);
-
+        int randomChildIndex = rand.nextInt(size);
+        Cell child = Children.get(randomChildIndex);
         logicGrid.setTank(child.getX(), child.getY());
-            child.setWhichTank(tankId);
-            tank.addCell(child);
-            child.setParent(origin);
-
+        child.setWhichTank(tankId);
+        tank.addCell(child);
+        child.setParent(origin);
         return child;
     }
 
@@ -194,7 +181,6 @@ public class GameLogic {
     public Boolean userTurn(int[] coordinates){
         int x = coordinates[0];
         int y =  coordinates[1];
-
         if(logicGrid.isCellTank(x, y)){
             logicGrid.setHit(x, y);
             updateGameboard();
@@ -205,10 +191,7 @@ public class GameLogic {
             updateGameboard();
             return false;
         }
-
-
     }
-
 
     public int getFortressHealth() {
         return FortressHealth;
@@ -242,18 +225,11 @@ public class GameLogic {
         return true;
     }
 
-
     public char[][] getUIGrid() {
         return UIGrid;
     }
 
-
-
     public char[][] getCheatGrid() {
         return cheatGrid;
     }
-
-
-
-
 }
